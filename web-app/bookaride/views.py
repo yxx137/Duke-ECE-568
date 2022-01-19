@@ -19,15 +19,13 @@ def oauth_login(request):
 def oauth_logout(request):
     logout(request)
     # Redirect to a success page.
-    return HttpResponse("logout success")
+    return redirect('/index')
 
 
 @csrf_exempt
 def authorize(request):
     username = request.POST['username']
     password = request.POST['password']
-    print("username    "+ username)
-    print("password    "+ password)
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
@@ -63,4 +61,4 @@ class MyRegisterView(View):
         user = User.objects.create_user(username, email,password)
         user.save()
 
-        return render(request, 'account/profile.html')
+        return render(request, 'account/profile.html', {'username':username})

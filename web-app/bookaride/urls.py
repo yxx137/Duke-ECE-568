@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from django.views.generic.base import RedirectView
 
 from . import views
 
 urlpatterns = [
+     path('', RedirectView.as_view(url='index/')),
     path('home/', views.home),
 
     path('oauth/login/', views.oauth_login),
