@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    {% if errormsg %}
+    <script>
+        alert('{{ errormsg }}');
+    </script>
+
+    {% endif %}
+
+<label >please enter the username and the password</label>
+<form action="/oauth/authorize/" method="post">   {% csrf_token %}
+    
+    <p> username </p>
+    <input id="username" type="text" name="username" >
+
+    <p> password </p>
+    <input id="password" type="password" name="password" >
+    <input type="submit" value="login">
+</form>
+
+
+
+</body>
+</html>
