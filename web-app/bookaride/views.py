@@ -6,7 +6,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.views import View
-
 from django.contrib.auth.models import User
 
 
