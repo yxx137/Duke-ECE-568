@@ -8,6 +8,8 @@ from django.shortcuts import redirect
 from django.views import View
 from django.contrib.auth.models import User
 
+from bookaride.models import *
+
 
 def home(request):
     return HttpResponse("hello")
@@ -39,8 +41,10 @@ def authorize(request):
 
 @login_required(login_url='/oauth/login/')
 def profile(request):
-
-    context = {'username' : request.user.username}
+    print(request.user.id)
+    vehicle = Vehicle.objects.get(driver_id = request.user.id)
+    print(vehicle)
+    context = {'username' : request.user.username,'vehicle':vehicle }
     return render(request, 'account/profile.html', context)
 
 def index(request):
@@ -61,3 +65,24 @@ class MyRegisterView(View):
         user.save()
 
         return render(request, 'account/profile.html', {'username':username})
+
+
+class MyRegisterAsDerverView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'driver/register.html')
+
+    def post(self, request, *args, **kwargs):
+
+
+        type = request.POST['type']
+        license_plate_number = request.POST['license_plate_number']
+        max_number_passengers = request.POST['max_number_passengers'] 
+        others = request.POST['others']
+
+        driver_id = request.user.id
+        
+        vehicle = Vehicle.objects.create(driver_id=driver_id,type=type, license_plate_number=license_plate_number,\
+        max_number_passengers=max_number_passengers,others=others)
+        vehicle.save()
+
+        return render(request, 'account/profile.html', {'vehicle':vehicle})
