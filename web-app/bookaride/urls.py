@@ -4,6 +4,8 @@ from django.urls import include
 from django.views.generic.base import RedirectView
 
 from . import views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
      path('', RedirectView.as_view(url='index/')),
@@ -19,4 +21,9 @@ urlpatterns = [
 
     path('driver/register', views.MyRegisterAsDerverView.as_view()),
     path('account/modifyvehicle', views.ModifyVehicleView.as_view()),
+
+        path('account/change-password/', auth_views.PasswordChangeView.as_view(success_url='/account/profile')),
+
 ]
+
+
