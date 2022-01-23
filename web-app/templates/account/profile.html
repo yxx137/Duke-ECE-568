@@ -14,7 +14,14 @@
 <p> <button onclick="location.href = '/driver/register'">register as a driver</button>   </p>
 {% endif %}
 
-<p> <button onclick="location.href = '/oauth/logout'">logout</button>     <button onclick="location.href = '/account/modifyaccount'">change my info</button>       </p>
+<p> <button onclick="location.href = '/oauth/logout'">logout</button>    
+    
+    
+ {% if vehicle %}
+    <button onclick="location.href = '/account/modifyvehicle'">change car info</button>  
+{% endif %}
+
+     <button onclick="location.href = '/account/modifyaccount'">change user info</button>    </p>
 
  {% if vehicle %}
 

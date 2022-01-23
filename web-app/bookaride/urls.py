@@ -17,5 +17,6 @@ urlpatterns = [
     path('index/', views.index),
     path('oauth/register/', views.MyRegisterView.as_view()),
 
-    path('driver/register', views.MyRegisterAsDerverView.as_view())
+    path('driver/register', views.MyRegisterAsDerverView.as_view()),
+    path('account/modifyvehicle', views.ModifyVehicleView.as_view()),
 ]

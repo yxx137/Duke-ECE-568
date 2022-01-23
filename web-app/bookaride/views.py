@@ -1,3 +1,4 @@
+from traceback import print_tb
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
@@ -41,10 +42,24 @@ def authorize(request):
 
 @login_required(login_url='/oauth/login/')
 def profile(request):
+
+    vehicle = None
+
+    context = {'username' : request.user.username}
+    print("userid")
     print(request.user.id)
-    vehicle = Vehicle.objects.get(driver_id = request.user.id)
-    print(vehicle)
-    context = {'username' : request.user.username,'vehicle':vehicle }
+
+    try:
+        vehicle = Vehicle.objects.get(driver_id = request.user.id)
+        
+    except:
+        pass
+
+    if vehicle != None :
+        context['vehicle']=vehicle
+        
+
+    print(context)
     return render(request, 'account/profile.html', context)
 
 def index(request):
@@ -85,4 +100,50 @@ class MyRegisterAsDerverView(View):
         max_number_passengers=max_number_passengers,others=others)
         vehicle.save()
 
-        return render(request, 'account/profile.html', {'vehicle':vehicle})
+        return redirect('/account/profile')
+
+
+class ModifyVehicleView(View):
+    def get(self, request, *args, **kwargs):
+        context = {'username' : request.user.username }
+
+        try:
+            vehicle = Vehicle.objects.get(driver_id = request.user.id)
+            context['vehicle']=vehicle
+        except:
+            pass
+        return render(request, 'account/modifyvehicle.html',context)
+
+    def post(self, request, *args, **kwargs):
+
+        type = request.POST.get('type','')
+        license_plate_number = request.POST.get('license_plate_number','')
+        max_number_passengers = request.POST.get('max_number_passengers','') 
+        others = request.POST.get('others','')
+
+
+        vehicle = Vehicle.objects.all().filter(driver_id = request.user.id)
+       
+      
+        if vehicle.count() != 0:
+
+            vehicle = vehicle[0]
+
+            try:
+                if type != '':
+                    vehicle.type = type
+
+                if license_plate_number != '':
+                    vehicle.license_plate_number = license_plate_number
+
+                if max_number_passengers != '' :
+                    vehicle.max_number_passengers = int(max_number_passengers)
+
+                if others != '':
+                    vehicle.others = others
+            except:
+                pass
+            
+            vehicle.save()
+
+        return redirect('/account/profile')
