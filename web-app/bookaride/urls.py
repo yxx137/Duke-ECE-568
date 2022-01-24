@@ -22,8 +22,14 @@ urlpatterns = [
     path('driver/register', views.MyRegisterAsDerverView.as_view()),
     path('account/modifyvehicle', views.ModifyVehicleView.as_view()),
 
-        path('account/change-password/', auth_views.PasswordChangeView.as_view(success_url='/account/profile')),
+    path('account/change-password/', auth_views.PasswordChangeView.as_view(success_url='/account/profile')),
+    path('account/mainpage', views.main_page_view),
+    path('passenger/createride', views.CreateRideView.as_view()),
+    path('riderequestlist/', views.RideListView.as_view()),
 
+    path('riderequestlist/<int:pk>', views.RideDetailView.as_view()),
+
+ 
 ]
 
 

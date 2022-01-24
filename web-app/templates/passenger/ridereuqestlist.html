@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ride Request LIst</title>
+</head>
+<body>
+
+    <h1>hello, {{username}} </h1>
+
+    <table>
+
+
+        <tr>
+            <th>arrival_data_time</th>
+            <th>destination_address</th>
+            <th>detail</th>
+        </tr>
+
+    {% for ride in ride_request_list %}
+    <tr>
+         <th>{{ride.arrival_data_time}}</th>   <th>{{ride.destination_address}}</th>  <th><a href="/riderequestlist/{{ride.id}}">link</a></th>
+    </tr>
+    {% endfor %}
+
+
+    </table>
+
+
+
+
+</body>
+</html>

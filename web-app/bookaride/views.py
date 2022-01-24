@@ -1,4 +1,5 @@
 from traceback import print_tb
+from django.http.response import Http404
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
@@ -8,6 +9,9 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.views import View
 from django.contrib.auth.models import User
+from django.views.generic import ListView
+from django.views.generic import DetailView 
+from django.shortcuts import get_object_or_404
 
 from bookaride.models import *
 
@@ -33,7 +37,7 @@ def authorize(request):
         login(request, user)
         # Redirect to a success page.
         # return HttpResponseRedirect('/account/profile')
-        return redirect('/account/profile')
+        return redirect('/account/mainpage')
 
     else:
         # Return an 'invalid login' error message.
@@ -44,11 +48,7 @@ def authorize(request):
 def profile(request):
 
     vehicle = None
-
     context = {'username' : request.user.username}
-    print("userid")
-    print(request.user.id)
-
     try:
         vehicle = Vehicle.objects.get(driver_id = request.user.id)
         
@@ -58,8 +58,6 @@ def profile(request):
     if vehicle != None :
         context['vehicle']=vehicle
         
-
-    print(context)
     return render(request, 'account/profile.html', context)
 
 def index(request):
@@ -147,3 +145,92 @@ class ModifyVehicleView(View):
             vehicle.save()
 
         return redirect('/account/profile')
+
+
+
+
+def main_page_view(request):
+    vehicle = None
+    context = {'username' : request.user.username}
+    try:
+        vehicle = Vehicle.objects.get(driver_id = request.user.id)
+        
+    except:
+        pass
+
+    if vehicle != None :
+        context['vehicle']=vehicle
+        
+    return render(request, 'account/mainpage.html', context)
+
+
+class CreateRideView(View):
+    def get(self, request, *args, **kwargs):
+        context = {'username' : request.user.username }
+        return render(request, 'passenger/createride.html',context)
+
+    def post(self, request, *args, **kwargs):
+
+        """
+        
+        owner_info = models.ForeignKey(
+        User,
+        on_delete = models.CASCADE,
+        )
+        vehicle_info = models.ForeignKey(
+            Vehicle,
+            on_delete=models.CASCADE,
+        )
+    
+        
+        """
+
+        vehicle_type = request.POST.get('vehicle_type','')
+        destination_address = request.POST.get('destination_address','')
+        arrival_data_time = request.POST.get('arrival_data_time','')
+        number_passengers = request.POST.get('number_passengers','')
+        is_shared = request.POST.get('is_shared','')
+        completed_status = request.POST.get('completed_status','')
+        Other = request.POST.get('Other','')
+
+        drive_reuqest = Request.objects.create(vehicle_type=vehicle_type, destination_address=destination_address, \
+            arrival_data_time=arrival_data_time, number_passengers=number_passengers, is_shared=is_shared, completed_status=completed_status,\
+                Other=Other)
+
+
+        drive_reuqest.save()
+
+
+class RideListView(ListView):
+    model = Request
+    context_object_name = 'ride_request_list'
+    template_name = 'passenger/ridereuqestlist.html'
+    # queryset = Request.objects.all().filter(owner_info_id= self.request.user.id)
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super(RideListView, self).get_context_data(**kwargs)
+        context['username'] = self.request.user.username
+        return context
+
+    def get_queryset(self):
+        return Request.objects.all().filter(owner_info_id= self.request.user.id)
+
+
+class RideDetailView(DetailView):
+    model = Request
+    context_object_name = 'ride'
+    template_name = 'passenger/riderequestdetail.html'
+
+    def book_detail_view(request, primary_key):
+        try:
+            riderequest = Request.objects.get(pk=primary_key)
+        except Request.DoesNotExist:
+            raise Http404('Ride does not exist')
+
+        return render(request, '', context={'ride': riderequest})
+
+    
+    
+
