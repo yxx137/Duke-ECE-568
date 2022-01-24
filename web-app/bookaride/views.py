@@ -240,23 +240,33 @@ class RideDetailView(DetailView):
 
     
     
-
+# 还没写完
 class ModifyRideView(View):
-    model = Request
-    context_object_name = 'ride_request_list'
-    template_name = 'passenger/ridereuqestlist.html'
-    # queryset = Request.objects.all().filter(owner_info_id= self.request.user.id)
+    def get(self, request, *args, **kwargs):
+        context = {'username' : request.user.username }
+
+        ride = Request.objects.get(pk = kwargs['rideid'])
+
+        context['ride'] = ride
+        return render(request, 'passenger/modifyride.html',context)
+
+    def post(self, request, *args, **kwargs):
+        pass
 
 
+def modifyrideview(request,driver_id):
 
-    def get_context_data(self, **kwargs):
-        context = super(ModifyRideView, self).get_context_data(**kwargs)
-        context['username'] = self.request.user.username
-        context['modify'] = 'true'
-        return context
+    context = {'username' : request.user.username }
+    if request.method == 'POST':
+        # Your code for POST
+        pass
+    else:
+        
+        context['driver_id'] = driver_id
+      
+    
+    return render(request, 'passenger/modifyride.html',context )
 
-    def get_queryset(self):
-        return Request.objects.all().filter(owner_info_id= self.request.user.id)
 
 
 def driverinfoview(request,driver_id):

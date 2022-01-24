@@ -29,9 +29,8 @@ urlpatterns = [
     path('myriderequestlist/', views.MyRideListView.as_view()),
     path('riderequestlist/<int:pk>', views.RideDetailView.as_view()),
 
-    path('passenger/modifyride', views.ModifyRideView.as_view()),
+    path('passenger/modifyride/<int:rideid>', views.ModifyRideView.as_view()),
 
-    
 
     path('driver/drivermsg/<int:driver_id>', views.driverinfoview),
 

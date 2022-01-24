@@ -43,9 +43,13 @@
 
 
 
-         {%if modify %}
+         {%if modify and ride.completed_status == 0 %}
 
-            <th><a href="/riderequestlist/modify{{ride.id}}">modify</a></th>
+            <th><a href="/passenger/modifyride/{{ride.id}}">modify</a></th>
+
+        {% else %}
+
+        <th><a>None</a></th>
 
         {%endif %}
     </tr>
