@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Driver</title>
+</head>
+<body>
+
+
+<label>Driver page</label>
+<br/>
+<label>Open Rides</label>
+<table>
+    {% for ride in openRequests %}
+        <tr>
+            <th>{{ ride.id }}</th>
+            <th>{{ ride.owner_info }}</th>
+            <th>{{ ride.vehicle_info }}</th>
+            <th>{{ ride.vehicle_type }}</th>
+            <th>{{ ride.destination_address }}</th>
+            <th>{{ ride.arrival_data_time }}</th>
+            <th>{{ ride.number_passengers }}</th>
+            <th>{{ ride.is_shared }}</th>
+            <th>{{ ride.completed_status }}</th>
+            <th>{{ ride.Other }}</th>
+        </tr>
+    {% endfor %}
+</table>
+<label>Confirmed Rides</label>
+<table>
+    {% for ride in confirmedRequests %}
+        <tr>
+            <th>{{ ride.id }}</th>
+            <th>{{ ride.owner_info }}</th>
+            <th>{{ ride.vehicle_info }}</th>
+            <th>{{ ride.vehicle_type }}</th>
+            <th>{{ ride.destination_address }}</th>
+            <th>{{ ride.arrival_data_time }}</th>
+            <th>{{ ride.number_passengers }}</th>
+            <th>{{ ride.is_shared }}</th>
+            <th>{{ ride.completed_status }}</th>
+            <th>{{ ride.Other }}</th>
+        </tr>
+    {% endfor %}
+</table>
+
+
+
+</body>
+</html>

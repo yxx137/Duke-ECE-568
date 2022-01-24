@@ -6,7 +6,7 @@ from django.views.generic.base import RedirectView
 from . import views
 
 urlpatterns = [
-     path('', RedirectView.as_view(url='index/')),
+    path('', RedirectView.as_view(url='index/')),
     path('home/', views.home),
 
     path('oauth/login/', views.oauth_login),
@@ -16,4 +16,8 @@ urlpatterns = [
     path('account/profile/', views.profile),
     path('index/', views.index),
     path('oauth/register/', views.MyRegisterView.as_view()),
+
+    path('driver/search/', views.DriverSearchView.as_view()),
+    path('driver/ride/<int:ride_id>/', views.DriverRideView.as_view()),
+    path('driver/confirm_ride/', views.DriverConfirmRide),
 ]

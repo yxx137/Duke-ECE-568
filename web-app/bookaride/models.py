@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -8,10 +9,10 @@ class Vehicle(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    type = models.CharField(max_length = 20)
-    license_plate_number = models.CharField(max_length = 50)
+    type = models.CharField(max_length=20)
+    license_plate_number = models.CharField(max_length=50)
     max_number_passengers = models.IntegerField(default=0)
-    others = models.CharField(max_length = 300)
+    others = models.CharField(max_length=300, null=True)
 
 
 class Request(models.Model):
@@ -22,14 +23,15 @@ class Request(models.Model):
     vehicle_info = models.ForeignKey(
         Vehicle,
         on_delete=models.CASCADE,
+        null=True
     )
-    vehicle_type = models.CharField(max_length = 20)
-    destination_address = models.CharField(max_length = 200)
+    vehicle_type = models.CharField(max_length=20)
+    destination_address = models.CharField(max_length=200)
     arrival_data_time = models.DateTimeField()
     number_passengers = models.IntegerField()
     is_shared = models.BooleanField()
     completed_status = models.IntegerField()
-    Other = models.CharField(max_length = 300)
+    Other = models.CharField(max_length=300, null=True)
 
 
 class ShareList(models.Model):

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Driver</title>
+</head>
+<body>
+
+
+<label>Driver Ride detail</label>
+<br/>
+<label>Current Ride</label>
+<table>
+        <tr>
+            <th>{{ ride.id }}</th>
+            <th>{{ ride.owner_info }}</th>
+            <th>{{ ride.vehicle_info }}</th>
+            <th>{{ ride.vehicle_type }}</th>
+            <th>{{ ride.destination_address }}</th>
+            <th>{{ ride.arrival_data_time }}</th>
+            <th>{{ ride.number_passengers }}</th>
+            <th>{{ ride.is_shared }}</th>
+            <th>{{ ride.completed_status }}</th>
+            <th>{{ ride.Other }}</th>
+        </tr>
+</table>
+
+
+<form action="/driver/confirm_ride/" method="post">
+    <input id="ride_id" type="hidden" name="ride_id" value="{{ride.id}}"/>
+    <input type="submit" value="Confirm Ride"/>
+</form>
+
+</body>
+</html>

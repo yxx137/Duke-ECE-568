@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.views import View
 from django.contrib.auth.models import User
+from .models import *
 
 
 def home(request):
@@ -61,3 +62,29 @@ class MyRegisterView(View):
         user.save()
 
         return render(request, 'account/profile.html', {'username':username})
+
+
+class DriverSearchView(View):
+    def get(self, request, *args, **kwargs):
+        userId = request.user.id
+        userVehicle = Vehicle.objects.get(driver=userId)
+        openRequests = Request.objects.filter(completed_status=0, vehicle_type=userVehicle.type, number_passengers__lte=userVehicle.max_number_passengers)
+        confirmedRequests = Request.objects.filter(completed_status=1, vehicle_info=userVehicle.id)
+        return render(request, 'driver/search.html', {'openRequests': openRequests, 'confirmedRequests': confirmedRequests})
+
+
+class DriverRideView(View):
+    def get(self, request, ride_id):
+        userId = request.user.id
+        userVehicle = Vehicle.objects.get(driver=userId)
+        ride = Request.objects.get(id=ride_id)
+        return render(request, 'driver/ride.html', {'ride': ride})
+
+@csrf_exempt
+def DriverConfirmRide(request):
+    ride_id = request.POST['ride_id']
+    ride = Request.objects.get(id=ride_id)
+    ride.completed_status = 1
+    ride.save()
+    return redirect('/driver/ride/'+ride_id+'/')
+
