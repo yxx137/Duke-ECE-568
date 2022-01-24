@@ -251,7 +251,28 @@ class ModifyRideView(View):
         return render(request, 'passenger/modifyride.html',context)
 
     def post(self, request, *args, **kwargs):
-        pass
+
+        ride = Request.objects.get(pk = kwargs['rideid'])
+        destination_address = request.POST.get('destination_address','')
+        arrival_data_time = request.POST.get('arrival_data_time','')
+        number_passengers = request.POST.get('number_passengers','')
+        is_shared = request.POST.get('is_shared','')
+        Other = request.POST.get('Other','')
+
+        
+        if destination_address != '':
+            ride.destination_address = destination_address
+        if arrival_data_time != '':
+            ride.arrival_data_time = arrival_data_time
+        if number_passengers != '':
+            ride.number_passengers = number_passengers
+        if is_shared != '':
+            ride.is_shared = is_shared
+        if Other != '':
+            ride.Other = Other
+
+        ride.save()
+        return redirect('/myriderequestlist/')
 
 
 def modifyrideview(request,driver_id):
