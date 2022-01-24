@@ -171,34 +171,22 @@ class CreateRideView(View):
 
     def post(self, request, *args, **kwargs):
 
-        """
-        
-        owner_info = models.ForeignKey(
-        User,
-        on_delete = models.CASCADE,
-        )
-        vehicle_info = models.ForeignKey(
-            Vehicle,
-            on_delete=models.CASCADE,
-        )
-    
-        
-        """
 
         vehicle_type = request.POST.get('vehicle_type','')
         destination_address = request.POST.get('destination_address','')
         arrival_data_time = request.POST.get('arrival_data_time','')
         number_passengers = request.POST.get('number_passengers','')
         is_shared = request.POST.get('is_shared','')
-        completed_status = request.POST.get('completed_status','')
+        completed_status = 0
         Other = request.POST.get('Other','')
 
         drive_reuqest = Request.objects.create(vehicle_type=vehicle_type, destination_address=destination_address, \
             arrival_data_time=arrival_data_time, number_passengers=number_passengers, is_shared=is_shared, completed_status=completed_status,\
-                Other=Other)
+                Other=Other, owner_info_id = self.request.user.id)
 
 
         drive_reuqest.save()
+        return redirect('myriderequestlist/')
 
 
 class RideListView(ListView):
@@ -212,6 +200,25 @@ class RideListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(RideListView, self).get_context_data(**kwargs)
         context['username'] = self.request.user.username
+        return context
+
+    def get_queryset(self):
+        return Request.objects.all()
+
+
+
+class MyRideListView(ListView):
+    model = Request
+    context_object_name = 'ride_request_list'
+    template_name = 'passenger/ridereuqestlist.html'
+    # queryset = Request.objects.all().filter(owner_info_id= self.request.user.id)
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super(MyRideListView, self).get_context_data(**kwargs)
+        context['username'] = self.request.user.username
+        context['modify'] = 'true'
         return context
 
     def get_queryset(self):
@@ -234,3 +241,33 @@ class RideDetailView(DetailView):
     
     
 
+class ModifyRideView(View):
+    model = Request
+    context_object_name = 'ride_request_list'
+    template_name = 'passenger/ridereuqestlist.html'
+    # queryset = Request.objects.all().filter(owner_info_id= self.request.user.id)
+
+
+
+    def get_context_data(self, **kwargs):
+        context = super(ModifyRideView, self).get_context_data(**kwargs)
+        context['username'] = self.request.user.username
+        context['modify'] = 'true'
+        return context
+
+    def get_queryset(self):
+        return Request.objects.all().filter(owner_info_id= self.request.user.id)
+
+
+def driverinfoview(request,driver_id):
+
+    vehicle = Vehicle.objects.get(driver_id = driver_id)
+    context = {'vehicle':vehicle}
+
+    user = User.objects.get(id = driver_id)
+    context['drivername'] = user.username
+    context['driveremail'] = user.email
+    context['username'] = request.user.username
+
+    return render(request, 'driver/drivermsg.html',context)
+    
