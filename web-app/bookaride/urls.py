@@ -34,7 +34,7 @@ urlpatterns = [
 
     path('driver/drivermsg/<int:driver_id>', views.driverinfoview),
 
-    
+    path('passenger/deleteride/<int:rideid>',views.delete_ride_view),
 
  
 ]

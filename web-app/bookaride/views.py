@@ -90,7 +90,7 @@ class MyRegisterAsDerverView(View):
         type = request.POST['type']
         license_plate_number = request.POST['license_plate_number']
         max_number_passengers = request.POST['max_number_passengers'] 
-        others = request.POST['others']
+        others = request.POST.get('others','')
 
         driver_id = request.user.id
         
@@ -98,7 +98,7 @@ class MyRegisterAsDerverView(View):
         max_number_passengers=max_number_passengers,others=others)
         vehicle.save()
 
-        return redirect('/account/profile')
+        return redirect('/account/mainpage')
 
 
 class ModifyVehicleView(View):
@@ -186,7 +186,7 @@ class CreateRideView(View):
 
 
         drive_reuqest.save()
-        return redirect('myriderequestlist/')
+        return redirect('/myriderequestlist/')
 
 
 class RideListView(ListView):
@@ -301,4 +301,12 @@ def driverinfoview(request,driver_id):
     context['username'] = request.user.username
 
     return render(request, 'driver/drivermsg.html',context)
+
+def delete_ride_view(request,rideid):
+
+
+    ride = Request.objects.get(id = rideid)
+    ride.delete()
+
+    return redirect('/myriderequestlist/')
     

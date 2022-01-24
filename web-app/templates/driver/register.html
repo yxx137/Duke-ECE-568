@@ -17,13 +17,13 @@
 <form action="/driver/register" method="post">   {% csrf_token %}
     
     <p> type </p>
-    <input name="type" >
+    <input name="type" required="required" >
 
     <p> license_plate_number </p>
-    <input  name="license_plate_number" >
+    <input  name="license_plate_number" required="required" >
 
     <p> max_number_passengers </p>
-    <input  name="max_number_passengers" >
+    <input  name="max_number_passengers" required="required">
 
     <p> others </p>
     <input  name="others" >
