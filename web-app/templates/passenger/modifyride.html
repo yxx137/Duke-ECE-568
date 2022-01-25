@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Ride</title>
+</head>
+<body>
+
+    <h1>hello, {{username}} , you are modify the ride request</h1>
+
+
+    <form action="/passenger/modifyride/{{ride.id}}" method="post">   {% csrf_token %}
+
+
+        <p><h3> destination_address : {{ride.destination_address}}   <input  name="destination_address"  > </h3></p>
+
+
+        <p><h3> arrival_data_time : {{ride.arrival_data_time}}      <input  name="arrival_data_time" type="datetime-local"  > </h3></p>
+
+        <p><h3> number_passengers : {{ride.number_passengers}}     <input  name="number_passengers"></h3></p>
+
+        <p><h3> is_shared : {{ride.is_shared}}   </h3>   is shared 
+
+        <select name="is_shared"  >
+            <option value="True">True</option>
+            <option value="False">False</option>
+
+        </select>   </p>
+
+
+        <p><h3> Other : {{ride.Other}}     <input  name="Other"  ></h3>  </p>
+        
+            
+    
+            <p>   <input type="submit" value="Modify"> </p>
+    </form>
+
+    
+    <p><button onclick="location.href = '/passenger/deleteride/{{ride.id}}'">delete the ride</button>  </p>
+
+
+</body>
+</html>

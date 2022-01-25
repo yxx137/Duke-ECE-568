@@ -25,14 +25,16 @@ class Request(models.Model):
         on_delete=models.CASCADE,
         null=True
     )
-    vehicle_type = models.CharField(max_length=20)
+    vehicle_type = models.CharField(max_length = 20, null=True)
     destination_address = models.CharField(max_length=200)
+    driver_id = models.CharField(max_length = 20, null=True)
+
     arrival_data_time = models.DateTimeField()
     number_passengers = models.IntegerField()
     is_shared = models.BooleanField()
     completed_status = models.IntegerField()
-    Other = models.CharField(max_length=300, null=True)
 
+    Other = models.CharField(max_length=300, null=True)
 
 class ShareList(models.Model):
     sharer_info = models.ForeignKey(

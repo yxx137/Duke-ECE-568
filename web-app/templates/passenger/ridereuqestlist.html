@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ride Request LIst</title>
+</head>
+<body>
+
+    <h1>hello, {{username}} </h1>
+
+
+    <button onclick="location.href = '/passenger/createride'">create a ride</button>  
+
+    <table>
+
+
+        <tr>
+            <th>arrival_data_time</th>
+            <th>destination_address</th>
+            <th>detail</th>
+            <th>driver & vehicle detail</th>
+
+            <th>modify</th>
+
+            
+        </tr>
+
+    {% for ride in ride_request_list %}
+    <tr>
+         <th>{{ride.arrival_data_time}}</th>   <th>{{ride.destination_address}}</th>  <th><a href="/riderequestlist/{{ride.id}}">link</a></th>
+
+         {% if ride.completed_status != 0 and modify%}
+
+         <th><a href="/driver/drivermsg/{{ride.driver_id}}">driver & vehicle information</a></th>
+  
+        {% else %}
+        <th><a >None</a></th>
+
+         {%endif%}
+
+
+
+         {%if modify and ride.completed_status == 0 %}
+
+            <th><a href="/passenger/modifyride/{{ride.id}}">modify</a></th>
+
+        {% else %}
+
+        <th><a>No permission</a></th>
+
+        {%endif %}
+    </tr>
+    {% endfor %}
+
+
+    </table>
+
+
+
+    <button onclick="location.href = '/account/mainpage'">back to mainpage</button>  
+
+
+
+
+</body>
+</html>

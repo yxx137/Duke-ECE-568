@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify Account</title>
+</head>
+<body>
+
+    <h1>hello, </h1>
+{{username}} 
+
+
+<form action="/account/modifyvehicle" method="post">   {% csrf_token %}
+
+
+    
+
+
+    {% if vehicle %}
+    
+    <p> type </p>
+    <input name="type" >
+
+    <p> license_plate_number </p>
+    <input  name="license_plate_number" >
+
+    <p> max_number_passengers </p>
+    <input  name="max_number_passengers" >
+
+    <p> others </p>
+    <input  name="others" >
+
+    {% endif %}
+
+
+    
+    <p>  <input type="submit" value="modify car info"></p>
+
+    <button onclick="location.href = '/account/profile'">back</button> 
+    
+</form>
+
+
+
+
+
+
+ 
+
+
+
+
+</body>
+</html>

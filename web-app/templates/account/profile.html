@@ -7,12 +7,40 @@
 <body>
 
     <a>hello, </a>
-{{username}} 
+{{username}}
 
-<p> <button onclick="location.href = '/driver/search'">I am Driver</button>   </p>
 
-<p> <button onclick="location.href = '/oauth/logout'">logout</button>   </p>
 
+<p> <button onclick="location.href = '/account/mainpage'">back</button>    
+
+
+
+    {% if not vehicle %}
+    <button onclick="location.href = '/driver/register'">become a driver</button>  
+{% endif %}
+    
+    
+ {% if vehicle %}
+    <button onclick="location.href = '/account/modifyvehicle'">change car info</button>
+    <button onclick="location.href = '/driver/search'">I am Driver</button>
+{% endif %}
+
+     <button onclick="location.href = '/account/change-password/'">change user info</button>    </p>
+
+ {% if vehicle %}
+
+ <a>  driver infomation  </a>
+
+ <p> vehicle type:    {{vehicle.type}} </p>
+
+ <p> license_plate_number:    {{vehicle.license_plate_number}} </p>
+
+ <p> max_number_passengers:    {{vehicle.max_number_passengers}} </p>
+
+ <p> others:    {{vehicle.others}} </p>
+ 
+
+{% endif %}
 
 
 </body>

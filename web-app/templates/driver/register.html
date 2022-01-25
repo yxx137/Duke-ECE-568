@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register As a Driver</title>
+</head>
+<body>
+
+    {% if errormsg %}
+    <script>
+        alert('{{ errormsg }}');
+    </script>
+
+    {% endif %}
+
+<label >please enter the username and the password</label>
+<form action="/driver/register" method="post">   {% csrf_token %}
+    
+    <p> type </p>
+    <input name="type" required="required" >
+
+    <p> license_plate_number </p>
+    <input  name="license_plate_number" required="required" >
+
+    <p> max_number_passengers </p>
+    <input  name="max_number_passengers" required="required">
+
+    <p> others </p>
+    <input  name="others" >
+    
+    <p> I want to </p>
+    <input type="submit" value="register">
+</form>
+
+
+
+</body>
+</html>
