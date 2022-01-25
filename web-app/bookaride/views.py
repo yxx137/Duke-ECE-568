@@ -13,7 +13,7 @@ from django.views.generic import ListView
 from django.views.generic import DetailView 
 from django.shortcuts import get_object_or_404
 
-from bookaride.models import *
+from .models import *
 
 
 def home(request):
