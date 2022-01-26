@@ -9,13 +9,13 @@
 
     {% if vehicle %}
         <button onclick="location.href = '/account/modifyvehicle'">change car info</button>
-        <a>  driver infomation  </a>
+        <p>  driver infomation  </p>
         <p> vehicle type:    {{vehicle.type}} </p>
         <p> license_plate_number:    {{vehicle.license_plate_number}} </p>
         <p> max_number_passengers:    {{vehicle.max_number_passengers}} </p>
         <p> others:    {{vehicle.others}} </p>
     {% else %}
-        <button onclick="location.href = '/driver/register'">become a driver</button>
+        <button onclick="location.href = '/driver/register/'">become a driver</button>
     {% endif %}
 
 {% endblock %}

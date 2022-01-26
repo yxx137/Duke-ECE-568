@@ -22,11 +22,11 @@
         <th>|</th>
         <th>{{ride.destination_address}}</th>
         <th>|</th>
-        <th>TBD</th>
+        <th><a href="/riderequestlist/{{ride.id}}">detail</a></th>
         <th>|</th>
-        <th>TBD</th>
+        <th>     {% if ride.driver_id%} <a href="/driver/drivermsg/{{ride.driver_id}}"> driver&vehivle msg </a> {%else%} None {%endif%}</th>
         <th>|</th>
-        <th>TBD</th>
+        <th> {% if ride.completed_status == 0%}<a href="/passenger/modifyride/{{ride.id}}">Modify</a> {%else%} None {%endif%} </th>
         <th>|</th>
         <th>{% include "list/request_list_item_action.html" with action=ride %}</th>
         <th>|</th>

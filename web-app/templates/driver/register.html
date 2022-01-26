@@ -13,7 +13,7 @@
     {% endif %}
 
     <label >Please enter the vehicle info</label>
-    <form action="/driver/register" method="post">   {% csrf_token %}
+    <form action="/driver/register/" method="post">   {% csrf_token %}
 
         <p> type </p>
         <input name="type" required="required" >

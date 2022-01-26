@@ -15,4 +15,25 @@
     {% empty %}
         <tr><th>|</th><th>Oops!! Nothing here!</th><th>|</th></tr>
     {% endfor %}
+
+
+    {% if share %}
+
+        Ride Request List as a sharer
+        {% if full %}
+            {% include "list/request_list_item_full.html" with header=True %}
+        {% else %}
+            {% include "list/request_list_item.html" with header=True %}
+        {% endif %}
+    {%endif%}
+
+    {% for ride in requests %}
+        {% if full %}
+            {% include "list/request_list_item_full.html" with ride=ride %}
+        {% else %}
+            {% include "list/request_list_item.html" with ride=ride %}
+        {% endif %}
+    {% empty %}
+        <tr><th>|</th><th>Oops!! Nothing here!</th><th>|</th></tr>
+    {% endfor %}
 </table>
