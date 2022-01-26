@@ -1,50 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "userbase.html" %}
+
+{% block title %}
     <title>Driver</title>
-</head>
-<body>
+{% endblock %}
 
+{% block content %}
 
-<label>Driver page</label>
-<br/>
-<label>Open Rides</label>
-<table>
-    {% for ride in openRequests %}
-        <tr>
-            <th>{{ ride.id }}</th>
-            <th>{{ ride.owner_info }}</th>
-            <th>{{ ride.vehicle_info }}</th>
-            <th>{{ ride.vehicle_type }}</th>
-            <th>{{ ride.destination_address }}</th>
-            <th>{{ ride.arrival_data_time }}</th>
-            <th>{{ ride.number_passengers }}</th>
-            <th>{{ ride.is_shared }}</th>
-            <th>{{ ride.completed_status }}</th>
-            <th>{{ ride.Other }}</th>
-        </tr>
-    {% endfor %}
-</table>
-<label>Confirmed Rides</label>
-<table>
-    {% for ride in confirmedRequests %}
-        <tr>
-            <th>{{ ride.id }}</th>
-            <th>{{ ride.owner_info }}</th>
-            <th>{{ ride.vehicle_info }}</th>
-            <th>{{ ride.vehicle_type }}</th>
-            <th>{{ ride.destination_address }}</th>
-            <th>{{ ride.arrival_data_time }}</th>
-            <th>{{ ride.number_passengers }}</th>
-            <th>{{ ride.is_shared }}</th>
-            <th>{{ ride.completed_status }}</th>
-            <th>{{ ride.Other }}</th>
-        </tr>
-    {% endfor %}
-</table>
+    <label>Driver page</label>
+    <br/>
+    <label>Open Rides</label>
+    {% include "list/request_list.html" with requests=openRequests full=True %}
+    <label>Confirmed Rides</label>
+    {% include "list/request_list.html" with requests=confirmedRequests full=True %}
 
-
-
-</body>
-</html>
+{% endblock %}

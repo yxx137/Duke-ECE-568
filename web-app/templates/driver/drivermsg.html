@@ -1,34 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
+{% extends "userbase.html" %}
 
-    <a>hello, </a>
-{{username}} 
+{% block title %}
+    <title>My Profile</title>
+{% endblock %}
 
+{% block content %}
 
-<h2>  driver infomation  </h2>
+    <h2>  driver infomation  </h2>
 
-<p> driver name:    {{drivername}} </p>
+    <p> driver name:    {{drivername}} </p>
 
-<p> driver email:    {{driveremail}} </p>
+    <p> driver email:    {{driveremail}} </p>
 
- <h2>  vehicle infomation  </h2>
+    <h2>  vehicle infomation  </h2>
 
- <p> vehicle type:    {{vehicle.type}} </p>
+    <p> vehicle type:    {{vehicle.type}} </p>
 
- <p> license_plate_number:    {{vehicle.license_plate_number}} </p>
+    <p> license_plate_number:    {{vehicle.license_plate_number}} </p>
 
- <p> max_number_passengers:    {{vehicle.max_number_passengers}} </p>
+    <p> max_number_passengers:    {{vehicle.max_number_passengers}} </p>
 
- <p> others:    {{vehicle.others}} </p>
- 
+    <p> others:    {{vehicle.others}} </p>
 
-
-
-
-</body>
-</html>
+{% endblock %}

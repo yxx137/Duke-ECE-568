@@ -1,0 +1,34 @@
+
+{% if header %}
+    <tr>
+        <th>|</th>
+        <th>Arrival Time</th>
+        <th>|</th>
+        <th>Destination</th>
+        <th>|</th>
+        <th>Detail</th>
+        <th>|</th>
+        <th>driver & vehicle detail</th>
+        <th>|</th>
+        <th>Modify</th>
+        <th>|</th>
+        <th>Actions</th>
+        <th>|</th>
+    </tr>
+{% else %}
+    <tr>
+        <th>|</th>
+        <th>{{ride.arrival_data_time}}</th>
+        <th>|</th>
+        <th>{{ride.destination_address}}</th>
+        <th>|</th>
+        <th>TBD</th>
+        <th>|</th>
+        <th>TBD</th>
+        <th>|</th>
+        <th>TBD</th>
+        <th>|</th>
+        <th>{% include "list/request_list_item_action.html" with action=ride %}</th>
+        <th>|</th>
+    </tr>
+{% endif %}

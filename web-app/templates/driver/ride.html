@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "userbase.html" %}
+
+{% block title %}
     <title>Driver</title>
-</head>
-<body>
+{% endblock %}
 
-
+{% block content %}
 <label>Driver Ride detail</label>
 <br/>
 <label>Current Ride</label>
@@ -27,9 +25,14 @@
 
 
 <form action="/driver/confirm_ride/" method="post">
-    <input id="ride_id" type="hidden" name="ride_id" value="{{ride.id}}"/>
+    <input type="hidden" name="ride_id" value="{{ride.id}}"/>
     <input type="submit" value="Confirm Ride"/>
 </form>
 
-</body>
-</html>
+<form action="/driver/complete_ride/" method="post">
+    <input type="hidden" name="ride_id" value="{{ride.id}}"/>
+    <input type="submit" value="Complete Ride"/>
+</form>
+
+
+{% endblock %}

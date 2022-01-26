@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "userbase.html" %}
+
+{% block title %}
     <title>Modify Ride</title>
-</head>
-<body>
+{% endblock %}
 
-    <h1>hello, {{username}} , you are modify the ride request</h1>
-
+{% block content %}
+<h1>you are modify the ride request</h1>
 
     <form action="/passenger/modifyride/{{ride.id}}" method="post">   {% csrf_token %}
 
-
         <p><h3> destination_address : {{ride.destination_address}}   <input  name="destination_address"  > </h3></p>
-
 
         <p><h3> arrival_data_time : {{ride.arrival_data_time}}      <input  name="arrival_data_time" type="datetime-local"  > </h3></p>
 
@@ -27,17 +23,11 @@
 
         </select>   </p>
 
-
         <p><h3> Other : {{ride.Other}}     <input  name="Other"  ></h3>  </p>
-        
-            
-    
+
             <p>   <input type="submit" value="Modify"> </p>
     </form>
 
-    
     <p><button onclick="location.href = '/passenger/deleteride/{{ride.id}}'">delete the ride</button>  </p>
 
-
-</body>
-</html>
+{% endblock %}

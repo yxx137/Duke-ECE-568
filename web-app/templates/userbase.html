@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% if username %}
+        <h1>hello, {{username}}</h1>
+    {% endif %}
+    <p>
+        <button onclick="location.href = '/account/mainpage'">Main page</button>
+        <button onclick="location.href = '/account/profile'">My profile</button>
+        <button onclick="location.href = '/oauth/logout'">logout</button>
+    </p>
+    <br/>
+    {% block content %}
+    {% endblock %}
+
+{% endblock %}

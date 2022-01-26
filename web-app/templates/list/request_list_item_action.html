@@ -1,0 +1,9 @@
+
+{% if action %}
+    {% if action.detail %}
+        <button onclick="location.href='{{action.detail}}'">Detail</button>
+    {% endif %}
+    {% if action.edit %}
+        <button onclick="location.href='{{action.edit}}'">Edit</button>
+    {% endif %}
+{% endif %}

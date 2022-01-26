@@ -28,7 +28,6 @@ class Request(models.Model):
     vehicle_type = models.CharField(max_length = 20, null=True)
     destination_address = models.CharField(max_length=200)
     driver_id = models.CharField(max_length = 20, null=True)
-
     arrival_data_time = models.DateTimeField()
     number_passengers = models.IntegerField()
     is_shared = models.BooleanField()

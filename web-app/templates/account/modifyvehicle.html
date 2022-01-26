@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "userbase.html" %}
+
+{% block title %}
     <title>Modify Account</title>
-</head>
-<body>
+{% endblock %}
 
-    <h1>hello, </h1>
-{{username}} 
-
-
+{% block content %}
 <form action="/account/modifyvehicle" method="post">   {% csrf_token %}
-
-
-    
-
 
     {% if vehicle %}
     
@@ -31,24 +22,9 @@
     <input  name="others" >
 
     {% endif %}
-
-
     
     <p>  <input type="submit" value="modify car info"></p>
-
-    <button onclick="location.href = '/account/profile'">back</button> 
     
 </form>
 
-
-
-
-
-
- 
-
-
-
-
-</body>
-</html>
+{% endblock %}

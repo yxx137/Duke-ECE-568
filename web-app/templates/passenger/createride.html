@@ -1,52 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "userbase.html" %}
+
+{% block title %}
     <title>Create a Ride</title>
-</head>
-<body>
+{% endblock %}
 
-    <h1>hello, {{username}} </h1>
-
-
+{% block content %}
     <form action="/passenger/createride" method="post">   {% csrf_token %}
 
+        <p> destination_address </p>
+        <input  name="destination_address" required="required">
 
+        <p> arrival_data_time </p>
+        <input  name="arrival_data_time" type="datetime-local" required="required" >
 
-            <p> destination_address </p>
-            <input  name="destination_address" required="required">
+        <p> number_passengers </p>
+        <input  name="number_passengers"  required="required">
 
-            <p> arrival_data_time </p>
-            <input  name="arrival_data_time" type="datetime-local" required="required" >
+        <p> is shared </p>
+        <select name="is_shared">
+            <option value="True">True</option>
+            <option value="False">False</option>
 
-            <p> number_passengers </p>
-            <input  name="number_passengers"  required="required">
+        </select>
 
+        <p> Other </p>
+        <input  name="Other" >
 
-            <p> is shared </p>
-            <select name="is_shared">
-                <option value="True">True</option>
-                <option value="False">False</option>
-
-            </select>
-        
-            <p> Other </p>
-            <input  name="Other" >
-
-            
-
-            
-
-            
-
-            
-    
-            <p>   <input type="submit" value="create"> </p>
+        <p>   <input type="submit" value="create"> </p>
     </form>
 
-
-
-
-
-</body>
-</html>
+{% endblock %}

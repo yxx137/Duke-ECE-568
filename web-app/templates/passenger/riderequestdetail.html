@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ride Request LIst</title>
-</head>
-<body>
+{% extends "userbase.html" %}
 
-    <h1>hello, {{username}} </h1>
+{% block title %}
+    <title>Ride Request LIst</title>
+{% endblock %}
+
+{% block content %}
 
         <p><h3> destination_address : {{ride.destination_address}}   </h3></p>
 
@@ -21,9 +19,5 @@
         <p><h3> completed_status : {{ride.completed_status}}   </h3></p>
 
         <p><h3> driver_id : {{ride.driver_id}}   </h3></p>
-
-
  
-
-</body>
-</html>
+{% endblock %}

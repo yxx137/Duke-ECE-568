@@ -1,0 +1,56 @@
+
+{% if header %}
+    <tr>
+        <th>|</th>
+        <th>Request Id</th>
+        <th>|</th>
+        <th>Request Owner</th>
+        <th>|</th>
+        <th>Driver</th>
+        <th>|</th>
+        <th>Vehicle</th>
+        <th>|</th>
+        <th>Required Vehicle Type</th>
+        <th>|</th>
+        <th>Destination</th>
+        <th>|</th>
+        <th>Arrival Data</th>
+        <th>|</th>
+        <th>Passengers Count</th>
+        <th>|</th>
+        <th>Sharable Request?</th>
+        <th>|</th>
+        <th>Request Status</th>
+        <th>|</th>
+        <th>Other</th>
+        <th>|</th>
+        <th>Actions</th>
+        <th>|</th>
+    </tr>
+{% else %}
+    <tr>
+        <th>|</th>
+        <th>{{ ride.id }}</th>
+        <th>|</th>
+        <th>{{ ride.owner_info }}</th>
+        <th>|</th>
+        <th>{{ ride.vehicle_info }}</th>
+        <th>|</th>
+        <th>{{ ride.vehicle_type }}</th>
+        <th>|</th>
+        <th>{{ ride.destination_address }}</th>
+        <th>|</th>
+        <th>{{ ride.arrival_data_time }}</th>
+        <th>|</th>
+        <th>{{ ride.number_passengers }}</th>
+        <th>|</th>
+        <th>{{ ride.is_shared }}</th>
+        <th>|</th>
+        <th>{{ ride.completed_status }}</th>
+        <th>|</th>
+        <th>{{ ride.Other }}</th>
+        <th>|</th>
+        <th>{% include "list/request_list_item_action.html" with action=ride %}</th>
+        <th>|</th>
+    </tr>
+{% endif %}
