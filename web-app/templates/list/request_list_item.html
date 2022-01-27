@@ -26,9 +26,15 @@
         <th>|</th>
         <th>     {% if ride.driver_id%} <a href="/driver/drivermsg/{{ride.driver_id}}"> driver&vehivle msg </a> {%else%} None {%endif%}</th>
         <th>|</th>
-        <th> {% if ride.completed_status == 0%}<a href="/passenger/modifyride/{{ride.id}}">Modify</a> {%else%} None {%endif%} </th>
+        <th> {% if ride.completed_status == 0 and  canModify != 0   %}<a href="/passenger/modifyride/{{ride.id}}">Modify</a> {%else%} None {%endif%} </th>
         <th>|</th>
         <th>{% include "list/request_list_item_action.html" with action=ride %}</th>
         <th>|</th>
     </tr>
 {% endif %}
+
+
+
+
+
+

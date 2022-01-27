@@ -8,6 +8,6 @@
 
     <button onclick="location.href = '/passenger/createride'">create a ride</button>
 
-    {% include "list/request_list.html" with requests=ride_request_list %}
+    {% include "list/request_list.html" with requests=ride_request_list share_ride_request_list=share_ride_request_list %}
 
 {% endblock %}
