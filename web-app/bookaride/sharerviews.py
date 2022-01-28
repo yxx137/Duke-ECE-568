@@ -37,15 +37,20 @@ class SharerSearchView(View):
 
         openRequests2 = list(map(lambda r: r.__dict__, list(openRequests)))
         firstRequest = openRequests2[0]
-        firstRequest['joinShare'] = '/sharer/search/joinsharer'
-        return render(request, 'sharer/search.html', {'openRequests': openRequests2,  'type': 'from post'})
+        firstRequest['joinShare'] = '/sharer/search/joinsharer/' + str(firstRequest['id'])
+        return render(request, 'sharer/search.html', {'openRequests': openRequests2})
 
 class SharerJoin(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, ride_id, **kwargs):
         userId = request.user.id
 
-        return render(request, 'sharer/joinsharer.html', {'openRequests': [], 'confirmedRequests': [], 'type': 'from get'})
+        return render(request, 'sharer/joinsharer.html', {'ride_id':ride_id})
 
 class ConfirmJoin(View):
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        userId = request.user.id
+        sharer_number = request.POST.get('number', '')
+        ride_id = request.POST.get('ride_id', '')
+        sharer_list = ShareList.objects.create(sharer_info_id=userId, request_id = ride_id, number_passengers=sharer_number)
+        sharer_list.save()
         return redirect('/account/mainpage')

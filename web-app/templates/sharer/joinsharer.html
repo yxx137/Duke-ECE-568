@@ -5,9 +5,10 @@
 {% endblock %}
 
 {% block content %}
-    <form action="/share/search/join/confirmjoin" method="get"> {% csrf_token %}
-        How many passengers do you have?:<input type="number"><br/>
+    <form action="/share/search/join/confirmjoin" method="post"> {% csrf_token %}
+        How many passengers do you have?:<input name="number" type="number"><br/>
         <br/>
+        <input name="ride_id" value="{{ride_id}}" type="hidden"/>
         Do you want to join the request?"<input type="submit" value="yes!"><br/>
     </form>
 

@@ -14,7 +14,6 @@ class Vehicle(models.Model):
     max_number_passengers = models.IntegerField(default=0)
     others = models.CharField(max_length=300, null=True)
 
-
 class Request(models.Model):
     owner_info = models.ForeignKey(
         User,
@@ -32,7 +31,7 @@ class Request(models.Model):
     number_passengers = models.IntegerField()
     is_shared = models.BooleanField()
     completed_status = models.IntegerField()
-
+    number_passengers_total = models.IntegerField(default=0)
     Other = models.CharField(max_length=300, null=True)
 
 class ShareList(models.Model):

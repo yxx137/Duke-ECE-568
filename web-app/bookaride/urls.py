@@ -38,7 +38,7 @@ urlpatterns = [
     path('driver/drivermsg/<int:driver_id>', views.driverinfoview),
 
     path('sharer/search/', views.SharerSearchView.as_view()),
-    path('sharer/search/joinsharer', views.SharerJoin.as_view()),
+    path('sharer/search/joinsharer/<int:ride_id>', views.SharerJoin.as_view()),
     path('share/search/join/confirmjoin', views.ConfirmJoin.as_view()),
 ]
 
