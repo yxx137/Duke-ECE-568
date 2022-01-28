@@ -82,3 +82,4 @@ class ModifyVehicleView(View):
 
         return redirect('/account/profile')
 
+

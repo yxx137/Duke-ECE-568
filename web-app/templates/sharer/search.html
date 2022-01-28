@@ -7,7 +7,7 @@
 {% block content %}
 
     <h2>Sharer Page</h2>
-    <h2>{{type}}</h2>
+    <h2>Search Your Rides!</h2>
     <br/>
     <form action="/sharer/search/" method="post"> {% csrf_token %}
         <table>
@@ -42,8 +42,6 @@
 
     <h2>Open Rides</h2>
     {% include "list/request_list.html" with requests=openRequests full=True %}
-    <h2>Confirmed Rides</h2>
-    {% include "list/request_list.html" with requests=confirmedRequests full=True %}
 
 {% endblock %}
 

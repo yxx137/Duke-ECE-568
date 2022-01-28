@@ -24,14 +24,28 @@ class SharerSearchView(View):
         userId = request.user.id
         userVehicle = Vehicle.objects.get(driver=userId)
 
-        #if len(destination)==0:
-        #    openRequests = Request.objects.filter(completed_status=0, is_shared=True)
-        if len(arrival_time_earliest)==0 or len(arrival_time_latest)==0 :
-            openRequests = Request.objects.filter(completed_status=0, is_shared = True,
-                                                  destination_address = destination)
-        else:
-            openRequests = Request.objects.filter(completed_status=0, is_shared = True,
-                                                  arrival_data_time__gt=arrival_time_earliest,
-                                                  arrival_data_time__lt=arrival_time_latest,
-                                                  destination_address = destination)
-        return render(request, 'sharer/search.html', {'openRequests': openRequests, 'confirmedRequests': [], 'type': 'from post'})
+        filterArgs = {'completed_status':0, 'is_shared':True}
+        if len(destination)!=0:
+            filterArgs['destination_address'] = destination
+        if len(arrival_time_earliest)!=0:
+            filterArgs['arrival_data_time__gt'] = arrival_time_earliest
+
+        if len(arrival_time_latest)!=0:
+            filterArgs['arrival_data_time__lt'] = arrival_time_latest
+
+        openRequests = Request.objects.filter(**filterArgs)
+
+        openRequests2 = list(map(lambda r: r.__dict__, list(openRequests)))
+        firstRequest = openRequests2[0]
+        firstRequest['joinShare'] = '/sharer/search/joinsharer'
+        return render(request, 'sharer/search.html', {'openRequests': openRequests2,  'type': 'from post'})
+
+class SharerJoin(View):
+    def get(self, request, *args, **kwargs):
+        userId = request.user.id
+
+        return render(request, 'sharer/joinsharer.html', {'openRequests': [], 'confirmedRequests': [], 'type': 'from get'})
+
+class ConfirmJoin(View):
+    def get(self, request, *args, **kwargs):
+        return redirect('/account/mainpage')
