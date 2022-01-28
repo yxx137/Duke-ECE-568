@@ -18,7 +18,7 @@ class DriverSearchView(View):
         openRequests = Request.objects.filter(completed_status=0, vehicle_type=userVehicle.type, number_passengers__lte=userVehicle.max_number_passengers)
         openRequestsNull = Request.objects.filter(completed_status=0, vehicle_type__isnull=True, number_passengers__lte=userVehicle.max_number_passengers)
         openRequestsWithAction = map(addAction, list(openRequests) + list(openRequestsNull))
-        confirmedRequests = Request.objects.filter(completed_status=1, vehicle_info=userVehicle.id)
+        confirmedRequests = Request.objects.filter(completed_status=1, vehicle_info_id=userVehicle.id)
         return render(request, 'driver/search.html', {'openRequests': openRequestsWithAction, 'confirmedRequests': confirmedRequests})
 
 
@@ -31,8 +31,11 @@ class DriverRideView(View):
 
 @csrf_exempt
 def DriverConfirmRide(request):
+    userId = request.user.id
+    userVehicle = Vehicle.objects.get(driver=userId)
     ride_id = request.POST['ride_id']
     ride = Request.objects.get(id=ride_id)
+    ride.vehicle_info_id = userVehicle.id
     ride.completed_status = 1
     ride.save()
     owner = User.objects.get(id=ride.owner_info_id)
@@ -56,3 +59,6 @@ def DriverCompeteRide(request):
     ride.save()
 
     return redirect('/driver/ride/'+ride_id+'/')
+
+
+

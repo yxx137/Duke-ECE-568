@@ -6,11 +6,11 @@
 
 {% block content %}
 
-    <label>Driver page</label>
+    <h2>Driver page</h2>
     <br/>
-    <label>Open Rides</label>
+    <h2>Open Rides</h2>
     {% include "list/request_list.html" with requests=openRequests full=True %}
-    <label>Confirmed Rides</label>
+    <h2>Confirmed Rides</h2>
     {% include "list/request_list.html" with requests=confirmedRequests full=True %}
 
 {% endblock %}

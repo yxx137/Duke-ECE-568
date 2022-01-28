@@ -15,8 +15,7 @@ class CreateRideView(View):
 
     def post(self, request, *args, **kwargs):
 
-
-        vehicle_type = request.POST.get('vehicle_type' ,'')
+        vehicle_type = request.POST.get('vehicle_type', None)
         destination_address = request.POST.get('destination_address' ,'')
         arrival_data_time = request.POST.get('arrival_data_time' ,'')
         number_passengers = request.POST.get('number_passengers' ,'')

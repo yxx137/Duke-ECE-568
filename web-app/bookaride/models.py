@@ -44,3 +44,4 @@ class ShareList(models.Model):
         Request,
         on_delete=models.CASCADE,
     )
+    number_passengers = models.IntegerField(default=1)
