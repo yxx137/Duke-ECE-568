@@ -50,22 +50,33 @@ class RideListView(ListView):
 
 
 
-class MyRideListView(ListView):
-    model = Request
-    context_object_name = 'ride_request_list'
-    template_name = 'passenger/ridereuqestlist.html'
-    # queryset = Request.objects.all().filter(owner_info_id= self.request.user.id)
+class MyRideListView(View):
+ 
 
 
-
-    def get_context_data(self, **kwargs):
-        context = super(MyRideListView, self).get_context_data(**kwargs)
+    def get(self, request, *args, **kwargs):
+        context = {}
         context['username'] = self.request.user.username
         context['modify'] = 'true'
-        return context
+        context['ride_request_list'] = Request.objects.all().filter(owner_info_id= self.request.user.id)
 
-    def get_queryset(self):
-        return Request.objects.all().filter(owner_info_id= self.request.user.id)
+
+        context['share'] = 'true'
+        share_ride_request_list = []
+        context['share_ride_request_list'] = share_ride_request_list
+
+        sharequeryset = ShareList.objects.all().filter(sharer_info = self.request.user.id)
+
+        request_ids = []
+        for share in sharequeryset:
+            request_ids.append(share.request_id)
+
+        for id in request_ids:
+            share_ride_request_list.append(Request.objects.get(id = id))
+        
+        return render(request, 'passenger/ridereuqestlist.html', context)
+
+
 
 
 class RideDetailView(DetailView):
